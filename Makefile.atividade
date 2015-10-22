@@ -3,18 +3,18 @@
 
 # Parameters
 
-CLIENT = definicao_client
-SERVER = definicao_server
+CLIENT = atividade_client
+SERVER = atividade_server
 
 SOURCES_CLNT.c = 
 SOURCES_CLNT.h = 
 SOURCES_SVC.c = 
 SOURCES_SVC.h = 
-SOURCES.x = definicao.x
+SOURCES.x = atividade.x
 
-TARGETS_SVC.c = definicao_svc.c definicao_server.c definicao_xdr.c 
-TARGETS_CLNT.c = definicao_clnt.c definicao_client.c definicao_xdr.c 
-TARGETS = definicao.h definicao_xdr.c definicao_clnt.c definicao_svc.c definicao_client.c definicao_server.c
+TARGETS_SVC.c = atividade_svc.c atividade_server.c atividade_xdr.c 
+TARGETS_CLNT.c = atividade_clnt.c atividade_client.c atividade_xdr.c 
+TARGETS = atividade.h atividade_xdr.c atividade_clnt.c atividade_svc.c atividade_client.c atividade_server.c
 
 OBJECTS_CLNT = $(SOURCES_CLNT.c:%.c=%.o) $(TARGETS_CLNT.c:%.c=%.o)
 OBJECTS_SVC = $(SOURCES_SVC.c:%.c=%.o) $(TARGETS_SVC.c:%.c=%.o)

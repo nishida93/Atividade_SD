@@ -3,7 +3,7 @@
  * It was generated using rpcgen.
  */
 
-#include "definicao.h"
+#include "atividade.h"
 
 bool_t
 xdr_cadastro (XDR *xdrs, cadastro *objp)
@@ -17,7 +17,7 @@ xdr_cadastro (XDR *xdrs, cadastro *objp)
 	 if (!xdr_vector (xdrs, (char *)objp->mens, 50,
 		sizeof (char), (xdrproc_t) xdr_char))
 		 return FALSE;
-	 if (!xdr_int (xdrs, &objp->flag))
+	 if (!xdr_int (xdrs, &objp->op))
 		 return FALSE;
 	return TRUE;
 }

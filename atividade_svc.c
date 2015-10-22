@@ -3,7 +3,7 @@
  * It was generated using rpcgen.
  */
 
-#include "definicao.h"
+#include "atividade.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <rpc/pmap_clnt.h>
@@ -17,13 +17,10 @@
 #endif
 
 static void
-definicao_1(struct svc_req *rqstp, register SVCXPRT *transp)
+atividade_1(struct svc_req *rqstp, register SVCXPRT *transp)
 {
 	union {
-		cadastro func1_1_arg;
-		cadastro func2_1_arg;
-		cadastro func3_1_arg;
-		cadastro func4_1_arg;
+		cadastro cad_mens_1_arg;
 	} argument;
 	char *result;
 	xdrproc_t _xdr_argument, _xdr_result;
@@ -34,28 +31,10 @@ definicao_1(struct svc_req *rqstp, register SVCXPRT *transp)
 		(void) svc_sendreply (transp, (xdrproc_t) xdr_void, (char *)NULL);
 		return;
 
-	case func1:
+	case cad_mens:
 		_xdr_argument = (xdrproc_t) xdr_cadastro;
 		_xdr_result = (xdrproc_t) xdr_int;
-		local = (char *(*)(char *, struct svc_req *)) func1_1_svc;
-		break;
-
-	case func2:
-		_xdr_argument = (xdrproc_t) xdr_cadastro;
-		_xdr_result = (xdrproc_t) xdr_int;
-		local = (char *(*)(char *, struct svc_req *)) func2_1_svc;
-		break;
-
-	case func3:
-		_xdr_argument = (xdrproc_t) xdr_cadastro;
-		_xdr_result = (xdrproc_t) xdr_int;
-		local = (char *(*)(char *, struct svc_req *)) func3_1_svc;
-		break;
-
-	case func4:
-		_xdr_argument = (xdrproc_t) xdr_cadastro;
-		_xdr_result = (xdrproc_t) xdr_int;
-		local = (char *(*)(char *, struct svc_req *)) func4_1_svc;
+		local = (char *(*)(char *, struct svc_req *)) cad_mens_1_svc;
 		break;
 
 	default:
@@ -83,15 +62,15 @@ main (int argc, char **argv)
 {
 	register SVCXPRT *transp;
 
-	pmap_unset (definicao, definicao_VERS);
+	pmap_unset (ATIVIDADE, ATIVIDADE_V1);
 
 	transp = svcudp_create(RPC_ANYSOCK);
 	if (transp == NULL) {
 		fprintf (stderr, "%s", "cannot create udp service.");
 		exit(1);
 	}
-	if (!svc_register(transp, definicao, definicao_VERS, definicao_1, IPPROTO_UDP)) {
-		fprintf (stderr, "%s", "unable to register (definicao, definicao_VERS, udp).");
+	if (!svc_register(transp, ATIVIDADE, ATIVIDADE_V1, atividade_1, IPPROTO_UDP)) {
+		fprintf (stderr, "%s", "unable to register (ATIVIDADE, ATIVIDADE_V1, udp).");
 		exit(1);
 	}
 
@@ -100,8 +79,8 @@ main (int argc, char **argv)
 		fprintf (stderr, "%s", "cannot create tcp service.");
 		exit(1);
 	}
-	if (!svc_register(transp, definicao, definicao_VERS, definicao_1, IPPROTO_TCP)) {
-		fprintf (stderr, "%s", "unable to register (definicao, definicao_VERS, tcp).");
+	if (!svc_register(transp, ATIVIDADE, ATIVIDADE_V1, atividade_1, IPPROTO_TCP)) {
+		fprintf (stderr, "%s", "unable to register (ATIVIDADE, ATIVIDADE_V1, tcp).");
 		exit(1);
 	}
 

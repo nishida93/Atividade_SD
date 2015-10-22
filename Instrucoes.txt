@@ -1,0 +1,21 @@
+cc -c atividade_xdr.c
+
+Compilar o cliente:
+
+cc -c atividade_client.c
+cc -c atividade_clnt.c
+cc -o cliente atividade_client.o atividade_clnt.o atividade_xdr.c
+
+Compilar o servidor:
+
+cc -c atividade_server.c
+cc -c atividade_svc.c
+cc -o servidor atividade_server.o atividade_svc.o atividade_xdr.c
+
+./servidor
+./cliente localhost
+
+OBS: Executar o servidor no modo root (comando: sudo su )
+
+
+
