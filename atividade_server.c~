@@ -21,99 +21,96 @@ cad_mens_1_svc(cadastro *argp, struct svc_req *rqstp)
 	static int  result;
 
 	if(argp->op == 1){ //Cadastrar Mensagens
-
 	/* Esse for serve para verificar se a posicao esta livre ou nao para cadastrar a msg */
-	for(x=0; x<5; x++){
+		for(x=0; x<5; x++){
 
-	/* Se for diferente de 0, significa que pode cadastrar na posicao */
+		/* Se for diferente de 0, significa que pode cadastrar na posicao */
 
-	  if(cad[x].p_livre_ocupado != -500){
+			if(cad[x].p_livre_ocupado != -500){
 
-		strcpy(cad[x].user,argp->user);
-		strcpy(cad[x].mens,argp->mens);
-			
-		
-		/* Atribui 0 a posicao pois ela esta ocupada agora */
-		cad[x].p_livre_ocupado = -500;
-		break;
-		
-	   }	
-	}//fecha o for
+			strcpy(cad[x].user,argp->user);
+			strcpy(cad[x].mens,argp->mens);
+
+			/* Atribui 0 a posicao pois ela esta ocupada agora */
+			cad[x].p_livre_ocupado = -500;
+			break;
+
+			}	
+		}//fecha o for
 
 
 		if(qtd_mensagem<5){	
-		    
+			    
 			qtd_mensagem++;
 		 	printf("Mensagem Cadastrada com sucesso!\n");	
 			result = 0; // 0 Representa o sucesso do cadastro da mensagem
-			
-		
+	
+
 		}
-			else{
+		else{
 
-				printf("Há 5 mensagens cadastradas! Nao eh possivel cadastrar mais.\n");
-				result = -1; // -1 Representa a falha do cadastro da mensagem
-		  	}	
+			printf("Há 5 mensagens cadastradas! Nao eh possivel cadastrar mais.\n");
+			result = -1; // -1 Representa a falha do cadastro da mensagem
+	  	}	
 
 
-	}//fecha o op
-
-		
+	}//fecha o op		
 	   
-		if(argp->op == 2){ //Ler Mensagens Cadastradas
+	if(argp->op == 2){ 
+	//Ler Mensagens Cadastradas
+		for(x=0; x<5; x++){
 
-
-			for(x=0; x<5; x++){
-
-	
-				if(cad[x].p_livre_ocupado==-500){
-				
-					printf("Usuario: %s\n", cad[x].user);
-					printf("Mensagem: %s\n", cad[x].mens);
-					printf("\n");
-				}
+			if(cad[x].p_livre_ocupado==-500){
+			
+				printf("Usuario: %s\n", cad[x].user);
+				printf("Mensagem: %s\n", cad[x].mens);
+				printf("\n");
 			}
-	
 		}
+		result = 13;
+
+	}
 			
 
 
-		if(argp->op == 3){ //Apagar Mensagens 
+	if(argp->op == 3){ //Apagar Mensagens 
 
-			for(x=0; x<5; x++){
-				if(strcmp(cad[x].user,argp->user)==0)
-				{	
+		for(x=0; x<5; x++){
+			if(strcmp(cad[x].user,argp->user)==0)
+			{	
 
-					cad[x].p_livre_ocupado = -2;
-					apagadas++;
-					qtd_mensagem--;
+				cad[x].p_livre_ocupado = -2;
+				apagadas++;
+				qtd_mensagem--;
 
-				}
-
-			}	
-			if(apagadas>0){
-
-				printf("Mensagens apagadas do servidor: %d\n", apagadas);
 			}
 
-			else
-				printf("Nao encontrou mensagem com o usuario\n\n");
+		}	
+		if(apagadas>0){
 
-			result = apagadas+100;
-
-			/* Zera o apagadas para os outros usuarios */
-
-			apagadas = 0;
-	
+			printf("Mensagens apagadas do servidor: %d\n", apagadas);
 		}
 
-		if(argp->op == 4){ //Sair da Aplicacao 
-
-				printf("O Cliente encerrou a aplicação!\n");
-
-				result = -4; // -4 Representa o encerramento da conexão pelo cliente
-		
+		else{
+			printf("Nao encontrou mensagem com o usuario fornecido.\n\n");
+			result = 50; // 50 retorna nenhuma msg apagada
 		}
+
+		result = apagadas + 100;
+
+		/* Zera o apagadas para os outros usuarios */
+
+		apagadas = 0;
+
+	}
+
+	if(argp->op == 4){ //Sair da Aplicacao 
+
+		printf("O Cliente encerrou a aplicação!\n");
+
+		result = -4; // -4 Representa o encerramento da conexão pelo cliente
+
+	}
 
 
 	return &result;

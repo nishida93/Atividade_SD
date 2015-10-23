@@ -6,7 +6,6 @@
 
 #include "atividade.h"
 
-
 void
 atividade_1(char *host, int op)
 {
@@ -20,26 +19,30 @@ atividade_1(char *host, int op)
 	cadastro  cad_mens_1_arg;
 	cadastro cad[5];
 	
-   if(operacao==1){ 
-    
-	printf("\nUsuario: ");
-  	__fpurge(stdin);
-  	fscanf(stdin, " %10[^\n]",cad_mens_1_arg.user);
-  	printf("Mensagem: ");
-  	__fpurge(stdin);
-  	fscanf(stdin, " %50[^\n]", cad_mens_1_arg.mens);
+		if(operacao==1){ 
+	    
+		printf("\nUsuario: ");
+	  	__fpurge(stdin);
+	  	fscanf(stdin, " %10[^\n]",cad_mens_1_arg.user);
+	  	printf("Mensagem: ");
+	  	__fpurge(stdin);
+	  	fscanf(stdin, " %50[^\n]", cad_mens_1_arg.mens);
 
-	cad_mens_1_arg.op = 1;
+		cad_mens_1_arg.op = 1;
   
-      }
+      	}
       
        
    	if(operacao==2){
      
 		cad_mens_1_arg.op = 2;
 
+		
+
 		for(x=0; x<5; x++)
 		{
+			//strcpy(aux[x].usuario,cad[x].user);
+			//strcpy(aux[x].msg,cad[x].mens);
 			printf("Usuario: %s\n", cad[x].user);
 			printf("Mensagem: %s\n", cad[x].mens);
 
@@ -71,6 +74,10 @@ atividade_1(char *host, int op)
 	}
 #endif	/* DEBUG */
 
+	fflush(stdin);
+	__fpurge(stdin);
+	fflush(stdout);
+
 	result_1 = cad_mens_1(&cad_mens_1_arg, clnt);
 	if (result_1 == (int *) NULL) {
 		clnt_perror (clnt, "Chamada Falhou");
@@ -79,7 +86,14 @@ atividade_1(char *host, int op)
 
 	if(*result_1 == 0){
 	//Opcao cadastrar mensagem SUCESSO
+		
 		printf("Mensagem Cadastrada com sucesso!\n");
+
+		printf("\c");
+
+		__fpurge(stdout);
+		fflush(stdout);		
+
 		sleep(2);
 
 		}
@@ -91,14 +105,40 @@ atividade_1(char *host, int op)
 
 	}
 
-	if(*result_1 == -2){
-	//Opcao Ler Mensagens
-	
+	if(*result_1 == 13){
+
+		for(x=0; x<5; x++){
+
+			//printf("Mensagens cadastradas:\n\n");
+			fflush(stdin);
+			__fpurge(stdin);
+			fflush(stdout);
+
+			if(cad[x].p_livre_ocupado==-500){
+			
+				printf("Usuario: %s\n", cad[x].user);
+				printf("Mensagem: %s\n\n", cad[x].mens);
+				//printf("\n");
+			}
+		}
+
 	}
+
 
 	if(*result_1 >= 100){
 	//Quantidade mensagens apagadas (Opcao 3)			
-		printf("Quantidade de mensagens apagadas: %d\n",*result_1-100);
+		printf("Quantidade de mensagens apagadas: %d\n\n",*result_1-100);
+
+		if(*result_1 - 100 == 0){
+	
+			printf("Nenhuma mensagem foi apagada.");
+
+			fflush(stdout);
+			__fpurge(stdout);
+
+			sleep(2);
+
+		}
 
 	}
 
@@ -109,7 +149,7 @@ atividade_1(char *host, int op)
 
 		printf("A conexao foi encerrada!\n");
 
-		sleep(2);
+		sleep(1);
 		
 		exit(0);
 		
@@ -182,5 +222,5 @@ main (int argc, char *argv[])
 
 	}
 
-	exit (0);
+	exit(0);
 }
