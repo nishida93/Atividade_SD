@@ -16,3 +16,6 @@ cc -o servidor atividade_server.o atividade_svc.o atividade_xdr.c
 ./cliente localhost
 
 OBS: Executar o servidor no modo root (comando: sudo su )
+
+
+

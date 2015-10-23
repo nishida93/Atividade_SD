@@ -18,6 +18,9 @@ struct cadastro {
 	char user[10];
 	char mens[50];
 	int op;
+	int p_livre_ocupado;
+	int msg_apagada;
+	int qtd_mensagem;
 };
 typedef struct cadastro cadastro;
 

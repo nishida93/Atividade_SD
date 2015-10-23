@@ -11,12 +11,14 @@ void
 atividade_1(char *host, int op)
 {
 	int operacao;
+	int x;
 
 	operacao = op;
 
 	CLIENT *clnt;
 	int  *result_1;
 	cadastro  cad_mens_1_arg;
+	cadastro cad[5];
 	
    if(operacao==1){ 
     
@@ -35,7 +37,14 @@ atividade_1(char *host, int op)
    	if(operacao==2){
      
 	cad_mens_1_arg.op = 2;
-     
+
+		for(x=0; x<5; x++)
+		{
+			printf("Usuario: %s\n", cad[x].user);
+			printf("Mensagem: %s\n", cad[x].mens);
+
+		}			
+
    	}
 
 
@@ -85,17 +94,19 @@ atividade_1(char *host, int op)
 					printf("\n");
 				}
 
-					if(*result_1 == -3){
-
-						printf("\n");
+					if(*result_1 >= 100){
+						
+							
+						printf("Quantidade de mensagens apagadas: %d\n",*result_1-100);
 					}
+						
 
-						if(*result_1 == -4){
+							if(*result_1 == -4){
 
-						printf("A conexao foi encerrada!\n");
-						exit(0);
-					}
-	
+								printf("A conexao foi encerrada!\n");
+								exit(0);
+							}
+		
 #ifndef	DEBUG
 	clnt_destroy (clnt);
 #endif	 /* DEBUG */
@@ -107,6 +118,7 @@ main (int argc, char *argv[])
 {
 	char *host;
 	int op;
+	int x;
 
 	if (argc < 2) {
 		printf ("usage: %s server_host\n", argv[0]);
